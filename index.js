@@ -31,7 +31,7 @@ $('.btn').click(function(){
     
     checkAnswer(userClickedPattern.length-1);
 });
-
+//checking of pattern 
 function checkAnswer(currentLevel){
     if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){
         console.log('success');
