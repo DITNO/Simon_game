@@ -41,8 +41,9 @@ function checkAnswer(currentLevel){
             },1000);
         }
     }else{
-        var audiow = new Audio('./sounds/wrong.mp3');
-        audiow.play();
+        // var audiow = new Audio('./sounds/wrong.mp3');
+        // audiow.play(); instead use
+        playsound('wrong');
         $('body').addClass('game-over');
         setTimeout(function(){
             $('body').removeClass('game-over');
