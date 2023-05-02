@@ -31,7 +31,7 @@ $('.btn').click(function(){
     
     checkAnswer(userClickedPattern.length-1);
 });
-//checking of pattern 
+
 function checkAnswer(currentLevel){
     if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){
         console.log('success');
@@ -41,7 +41,14 @@ function checkAnswer(currentLevel){
             },1000);
         }
     }else{
-        console.log('wrong');
+        var audiow = new Audio('./sounds/wrong.mp3');
+        audiow.play();
+        $('body').addClass('game-over');
+        setTimeout(function(){
+            $('body').removeClass('game-over');
+        },200);
+        $('#level-tittle').text('Game Over, Press Any Key to Restart');
+
     }
 }
 
