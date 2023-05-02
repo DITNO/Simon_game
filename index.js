@@ -1,11 +1,9 @@
 var buttoncolours = ['red','blue','green','yellow'];
 
 var gamePattern = [];
-
 var userClickedPattern = [];
 
 var started = false;
-
 var level =0;
 
 $(document).keypress(function(){
@@ -22,11 +20,9 @@ $(document).keypress(function(){
 $('.btn').click(function(){
     
     var userChosenColour = $(this).attr('id');
-    
     userClickedPattern.push(userChosenColour);
     
     playsound(userChosenColour);
-    
     animatePress(userChosenColour);
     
     checkAnswer(userClickedPattern.length-1);
@@ -34,7 +30,6 @@ $('.btn').click(function(){
 
 function checkAnswer(currentLevel){
     if(gamePattern[currentLevel] === userClickedPattern[currentLevel]){
-        console.log('success');
         if(userClickedPattern.length === gamePattern.length){
             setTimeout(function(){
                 nextsequence();
@@ -42,19 +37,23 @@ function checkAnswer(currentLevel){
         }
     }else{
         // var audiow = new Audio('./sounds/wrong.mp3');
-        // audiow.play(); instead use
+        // audiow.play(); instead use 
         playsound('wrong');
+
         $('body').addClass('game-over');
+        $('#level-tittle').text('Game Over, Press Any Key to Restart');
+
         setTimeout(function(){
             $('body').removeClass('game-over');
         },200);
-        $('#level-tittle').text('Game Over, Press Any Key to Restart');
 
+        startOver();
     }
 }
 
 function nextsequence() {
     
+    userClickedPattern = [];
     level++;
     $('#level-tittle').text('Level '+level);
 
@@ -63,17 +62,26 @@ function nextsequence() {
     // n = Math.floor(n);
     
     var randomNumber = Math.floor(Math.random()*4);
-    
     var randomChosenColour = buttoncolours[randomNumber];
-    
     gamePattern.push(randomChosenColour);
 
 
     $("#"+ randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
-
     playsound(randomChosenColour);
 
     
+}
+
+
+function animatePress(currentcolour){
+    // $('.btn').click.addClass('Pressed');
+    //the current colour gets picked up from the function above where we are getting
+    //the btn id through press , all the elemets are taking parameter from it only.
+    $('#' + currentcolour).addClass('pressed');
+    
+    setTimeout(function(){
+        $('#' + currentcolour).removeClass('pressed');
+    },100);
 }
 
 function playsound(name){
@@ -83,14 +91,8 @@ function playsound(name){
     audio.play();
 }
 
-function animatePress(currentcolour){
-    // $('.btn').click.addClass('Pressed');
-//the current colour gets picked up from the function above where we are getting
-//the btn id through press , all the elemets are taking parameter from it only.
-    $('#' + currentcolour).addClass('pressed');
-
-    setTimeout(function(){
-        $('#' + currentcolour).removeClass('pressed');
-    },100);
+function startOver(){
+    level = 0;
+    gamePattern = [];
+    started = false;
 }
-
