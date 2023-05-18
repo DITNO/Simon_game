@@ -1,4 +1,6 @@
-var buttoncolours = ['red','blue','green','yellow'];
+//js file
+v
+ar buttoncolours = ['red','blue','green','yellow'];
 
 var gamePattern = [];
 var userClickedPattern = [];
